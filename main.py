@@ -1,4 +1,5 @@
 from flask import Flask, request, redirect
+from caesar import rotate_string
 import cgi
 
 app = Flask(__name__)
@@ -40,6 +41,14 @@ form = """
     </body>
 </html>
 """
+
+@app.route('/encrypted', methods=['POST'])
+def encrypt():
+    rot = int(request.form['rot'])
+    text = request.form['text']
+    result = rotate_string(text, rot)
+    return '<h1>'result'</h1>'
+
 
 @app.route("/")
 def index():
